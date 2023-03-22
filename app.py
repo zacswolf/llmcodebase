@@ -30,8 +30,9 @@
 #     return {"answer": answer}
 
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
+import markdown2
 from info import FolderInfo
 from question_intaker import clean_question, ask_question
 
@@ -63,6 +64,16 @@ async def question(request: Request, question: str = Form(...)):
             "answer_feedback": auto_gen_answer_feedback,
         },
     )
+
+
+@app.get("/about")
+async def about(request: Request):
+    with open("README.md", "r") as f:
+        markdown_content = f.read()
+
+    html_content = markdown2.markdown(markdown_content)
+
+    return HTMLResponse(content=html_content)
 
 
 @app.post("/feedback")

@@ -1,97 +1,111 @@
-Possible developer questions -> tools
+# About
 
-What is the purpose of this function? - Source code, Documentation systems
+The goal of this project is to interface LLM with any codebase so that developers can ask various questions on it.
 
-What are the inputs and outputs of this function? - Source code, Documentation systems
+## Possible developer questions -> tools
 
-Can you show me examples of how to use this function? - Source code, Documentation systems
+- What is the purpose of this function? - Source code, Documentation systems
 
-Are there any known issues or bugs in this function? - Issue tracking systems
+- What are the inputs and outputs of this function? - Source code, Documentation systems
 
-What are the dependencies for this function or module? - Source code, Build systems, Dependency and package managers
+- Can you show me examples of how to use this function? - Source code, Documentation systems
 
-How is this function being tested? - Source code, Testing frameworks and tools
+- Are there any known issues or bugs in this function? - Issue tracking systems
 
-Are there any performance bottlenecks in this code? - Source code, Performance profiling tools
+- What are the dependencies for this function or module? - Source code, Build systems, Dependency and package managers
 
-What are the best practices followed in this codebase? - Source code, Code analysis and linting tools
+- How is this function being tested? - Source code, Testing frameworks and tools
 
-How is error handling implemented in this function or module? - Source code
+- Are there any performance bottlenecks in this code? - Source code, Performance profiling tools
 
-Are there any security vulnerabilities in this code? - Source code, Security scanning tools, Vulnerability databases
+- What are the best practices followed in this codebase? - Source code, Code analysis and linting tools
 
-How can I refactor this code to make it more efficient or readable? - Source code, Code analysis and linting tools
+- How is error handling implemented in this function or module? - Source code
 
-What coding style or conventions are followed in this codebase? - Source code, Code analysis and linting tools
+- Are there any security vulnerabilities in this code? - Source code, Security scanning tools, Vulnerability databases
 
-Can you find all instances where this function is called? - Source code, Integrated Development Environments (IDEs)
+- How can I refactor this code to make it more efficient or readable? - Source code, Code analysis and linting tools
 
-How does this class or module interact with other classes or modules? - Source code
+- What coding style or conventions are followed in this codebase? - Source code, Code analysis and linting tools
 
-What are the key architectural decisions made in this codebase? - Source code, Documentation systems
+- Can you find all instances where this function is called? - Source code, Integrated Development Environments (IDEs)
 
-Are there any deprecated functions or libraries used in this code? - Source code, Dependency and package managers
+- How does this class or module interact with other classes or modules? - Source code
 
-How is data validation and sanitization done in this code? - Source code
+- What are the key architectural decisions made in this codebase? - Source code, Documentation systems
 
-Can you show me the commit history of this file or function? - Version control systems
+- Are there any deprecated functions or libraries used in this code? - Source code, Dependency and package managers
 
-What are the most frequently modified parts of this codebase? - Version control systems
+- How is data validation and sanitization done in this code? - Source code
 
-Are there any code comments or documentation that provide more context? - Source code, Documentation systems
+- Can you show me the commit history of this file or function? - Version control systems
 
-Can you provide an overview of the project structure? - Source code
+- What are the most frequently modified parts of this codebase? - Version control systems
 
-How are the different components or modules of the project organized? - Source code
+- Are there any code comments or documentation that provide more context? - Source code, Documentation systems
 
-What is the main entry point of the application? - Source code
+- Can you provide an overview of the project structure? - Source code
 
-Can you generate a dependency graph for the entire project? - Source code, Build systems, Dependency and package managers
+- How are the different components or modules of the project organized? - Source code
 
-What are the key design patterns used in this codebase? - Source code
+- What is the main entry point of the application? - Source code
 
-How is the project configured, and what are the important configuration files? - Build systems, Configuration files
+- Can you generate a dependency graph for the entire project? - Source code, Build systems, Dependency and package managers
 
-What third-party libraries or frameworks are used in this project, and what are their versions? - Dependency and package managers
+- What are the key design patterns used in this codebase? - Source code
 
-How is the build process set up for this project, and what build tools are used? - Build systems
+- How is the project configured, and what are the important configuration files? - Build systems, Configuration files
 
-Are there any performance or resource usage metrics available for the application? - Performance profiling and monitoring tools
+- What third-party libraries or frameworks are used in this project, and what are their versions? - Dependency and package managers
 
-How is the project tested, and what testing frameworks or methodologies are used? - Testing frameworks and tools
+- How is the build process set up for this project, and what build tools are used? - Build systems
 
-Are there any continuous integration and deployment (CI/CD) pipelines set up for this project? - Continuous Integration and Deployment (CI/CD) systems
+- Are there any performance or resource usage metrics available for the application? - Performance profiling and monitoring tools
 
-What coding standards or style guides are followed across the codebase? - Code analysis and linting tools
+- How is the project tested, and what testing frameworks or methodologies are used? - Testing frameworks and tools
 
-Can you show me the overall commit history and trends for the entire project? - Version control systems
+- Are there any continuous integration and deployment (CI/CD) pipelines set up for this project? - Continuous Integration and Deployment (CI/CD) systems
 
-Who are the main contributors to this project, and what parts of the codebase have they worked on? - Version control systems
+- What coding standards or style guides are followed across the codebase? - Code analysis and linting tools
 
-Are there any outstanding issues, bugs, or feature requests for the project? - Issue tracking systems
+- Can you show me the overall commit history and trends for the entire project? - Version control systems
 
-How is the project versioned, and what is the release history? - Version control systems, Build systems
+- Who are the main contributors to this project, and what parts of the codebase have they worked on? - Version control systems
 
-Can you identify any code that is not being used or is deprecated? - Source code, Code analysis and linting tools
+- Are there any outstanding issues, bugs, or feature requests for the project? - Issue tracking systems
 
-Are there any known security vulnerabilities in the project? - Security scanning tools, Vulnerability databases
+- How is the project versioned, and what is the release history? - Version control systems, Build systems
 
-How is logging and monitoring implemented across the application? - Source code, Performance profiling and monitoring tools
+- Can you identify any code that is not being used or is deprecated? - Source code, Code analysis and linting tools
 
-Can you provide an overview of the project's documentation? - Documentation systems
+- Are there any known security vulnerabilities in the project? - Security scanning tools, Vulnerability databases
 
-# Start with focusing on a source code understanding tool.
+- How is logging and monitoring implemented across the application? - Source code, Performance profiling and monitoring tools
+
+- Can you provide an overview of the project's documentation? - Documentation systems
+
+## Start with focusing on a source code understanding tool.
 
 ## It would be amazing to be able to answer the following questions:
 
-How does the implementation of the caching mechanism in this codebase work?
-Can you summarize the main responsibilities of the OrderProcessor class?
-Which functions in the codebase are most similar to the calculate_tax function in terms of functionality?
-Are there any instances where the Single Responsibility Principle is violated in this codebase?
-What are the most commonly used design patterns in this codebase, and where are they implemented?
-How does the error handling in this project compare to best practices for this programming language?
-What is the relationship between the User class and the Authentication module?
-How is the project's database schema designed, and how does the code interact with it?
-How does this codebase handle concurrency and parallelism?
-How does the codebase handle internationalization and localization?
-Can you provide a high-level overview of the data flow in this codebase?
+- How does the implementation of the caching mechanism in this codebase work?
+
+- Can you summarize the main responsibilities of the OrderProcessor class?
+
+- Which functions in the codebase are most similar to the calculate_tax function in terms of functionality?
+
+- Are there any instances where the Single Responsibility Principle is violated in this codebase?
+
+- What are the most commonly used design patterns in this codebase, and where are they implemented?
+
+- How does the error handling in this project compare to best practices for this programming language?
+
+- What is the relationship between the User class and the Authentication module?
+
+- How is the project's database schema designed, and how does the code interact with it?
+
+- How does this codebase handle concurrency and parallelism?
+
+- How does the codebase handle internationalization and localization?
+
+- Can you provide a high-level overview of the data flow in this codebase?
