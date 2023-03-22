@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LangChain Demo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+      .loading-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-6">
+        <h1 class="text-center mb-4">LangChain Demo</h1>
+        <form action="/question" method="post" class="mb-4" id="question-form">
+          <div class="form-group">
+            <label for="question">Enter your question:</label>
+            <input type="text" class="form-control" id="question" name="question" required>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+        </form>
+        <div class="loading-overlay" id="loading-overlay">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        {% if question %}
+          <div class="alert alert-primary" role="alert">
+            <p><strong>Your question:</strong> {{ question }}</p>
+          </div>
+        {% endif %}
+        {% if answer %}
+          <div class="alert alert-success" role="alert">
+            <p><strong>Answer:</strong> {{ answer }}</p>
+          </div>
+        {% endif %}
+        {% if context_feedback %}
+          <div class="alert alert-secondary" role="alert">
+            <p><strong>Context feedback:</strong> {{ context_feedback }}</p>
+          </div>
+        {% endif %}
+        {% if answer_feedback %}
+          <div class="alert alert-secondary" role="alert">
+            <p><strong>Answer feedback:</strong> {{ answer_feedback }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <script>
+      const form = document.getElementById('question-form');
+      const submitButton = document.getElementById('submit-button');
+      const loadingOverlay = document.getElementById('loading-overlay');
+
+      form.addEventListener('submit', function() {
+        submitButton.disabled = true;
+        loadingOverlay.style.display = 'flex';
+      });
+    </script>
+  </body>
+</html>
