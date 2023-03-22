@@ -3,3 +3,6 @@ __pycache__/
 .env
 .vscode/
 open_ai_cache.json
+codebases/
+outputs/
+.python-version

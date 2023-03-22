@@ -1,8 +1,9 @@
 import re
+import os
 from llm import call_llm, llm_checklength
 
 
-def gen_py_info(path, file_name, contents):
+def gen_py_info(path: os.PathLike, file_name: str, contents: str) -> str:
     """
     Generate a summary of the Python file using an LLM.
 
@@ -20,9 +21,15 @@ def gen_py_info(path, file_name, contents):
     if fits_in_one_request:
         summary = call_llm(prompt)
     else:
-        # Handle very long sections if needed
-        print(f"Very long section, not implemented yet: {path}")
-        raise NotImplementedError
+        # # Handle very long sections if needed
+        # raise NotImplementedError(f"Very long section, not implemented yet: {path}")
+
+        # dumb solution
+        r1 = gen_py_info(path, file_name, contents[: len(contents) // 2])
+        r2 = gen_py_info(path, file_name, contents[len(contents) // 2 :])
+
+        prompt = f"Combine the following two partial summaries into one:\n\nSummary 1:\n{r1}\n\nSummary 2:\n{r2}\n\nCombined Summary:"
+        summary = call_llm(prompt)
 
     return summary
 
