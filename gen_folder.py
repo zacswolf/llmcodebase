@@ -9,22 +9,23 @@ def gen_folder_info(path, children_info: dict[str, str]) -> str:
 
     fits_in_one_request = llm_checklength(prompt)
     if fits_in_one_request:
-        # summary = call_llm(prompt)
-        summary = None
+        summary = call_llm(prompt)
+        # summary = None
     else:
         # Handle very long sections if needed
         # print(f"Very long section, not implemented yet: {path}")
         # # raise NotImplementedError
-        # ci1 = dict(list(children_info.items())[len(children_info) // 2 :])
-        # ci2 = dict(list(children_info.items())[: len(children_info) // 2])
+        ci1 = dict(list(children_info.items())[len(children_info) // 2 :])
+        ci2 = dict(list(children_info.items())[: len(children_info) // 2])
+        r1 = gen_folder_info(path, ci1)
+        r2 = gen_folder_info(path, ci2)
         # p1 = create_prompt_list(path, ci1)
         # p2 = create_prompt_list(path, ci2)
         # s1 = call_llm(p1)
         # s2 = call_llm(p2)
 
-        # prompt = f"Combine the following two partial summaries into one:\n\nSummary 1:\n{s1}\n\nSummary 2:\n{s2}\n\nCombined Summary:"
-        # summary = call_llm(prompt)
-        summary = None
+        prompt = f"Combine the following two partial summaries into one:\n\nSummary 1:\n{r1}\n\nSummary 2:\n{r2}\n\nCombined Summary:"
+        summary = call_llm(prompt)
 
     return summary
 

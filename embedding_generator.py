@@ -45,7 +45,7 @@ if __name__ == "__main__":
     #     },
     # )
 
-    folder_info = FolderInfo.load_from_json("outputs/03_22_01_04_04.json")
+    folder_info = FolderInfo.load_from_json("outputs/03_22_21_30_12.json")
 
     generate_embeddings(folder_info)
     print(folder_info)

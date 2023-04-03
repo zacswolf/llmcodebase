@@ -24,28 +24,42 @@ from queue import PriorityQueue
 # What is the structure of the
 
 
-def collect_summary_embeddings(info: FolderInfo) -> list[tuple[str, Tensor]]:
+def collect_summary_embeddings(
+    info: FolderInfo, enable_folder=True, enable_file=True
+) -> list[tuple[str, Tensor]]:
     embeddings = []
-    if info.summary_embedding is not None:
+    if info.summary_embedding is not None and enable_folder:
         embeddings.append((info.summary, info.summary_embedding))
 
     for child in info.children_info.values():
         if child is not None:
             if isinstance(child, FolderInfo):
-                embeddings.extend(collect_summary_embeddings(child))
-            elif isinstance(child, FileInfo) and child.summary_embedding is not None:
+                embeddings.extend(
+                    collect_summary_embeddings(
+                        child, enable_file=enable_file, enable_folder=enable_folder
+                    )
+                )
+            elif (
+                isinstance(child, FileInfo)
+                and child.summary_embedding is not None
+                and enable_file
+            ):
                 embeddings.append((child.summary, child.summary_embedding))
 
     return embeddings
 
 
 def get_context_sentence_transformers(
-    question: str, info: FolderInfo, top_k: int = 15
+    question: str,
+    info: FolderInfo,
+    top_k: int = 15,
+    enable_folder=True,
+    enable_file=True,
 ) -> list[tuple[str, float]]:
     question_embedding = torch.tensor(generate_embedding(question))
 
     # Collect summary embeddings
-    summary_embeddings = collect_summary_embeddings(info)
+    summary_embeddings = collect_summary_embeddings(info, enable_folder, enable_file)
 
     # Find the top k most similar sentences in the folder info
     top_sentences = PriorityQueue(maxsize=top_k)
@@ -74,7 +88,9 @@ def get_context_sentence_transformers(
 
 
 def ask_question(question: str, folder_info: FolderInfo):
-    most_rel = get_context_sentence_transformers(question, folder_info)
+    most_rel = get_context_sentence_transformers(
+        question, folder_info, enable_folder=True
+    )
 
     prompt = create_prompt(question, [context for context, score in most_rel])
     fits_in_one_request = llm_checklength(prompt)
@@ -107,8 +123,19 @@ def context_feedback_prompt(question: str, context_list: list[str]) -> str:
     prompt = "Context:\n"
     for context in context_list:
         prompt += f"- {context}\n"
-    prompt += f"\nThe user asked: {question}\n\n"
-    prompt += "\nHow relevant is the above context to the user's question?"
+    # prompt += f"\nThe user asked: {question}\n\n"
+    # prompt += "\nHow relevant is the above context to the user's question?"
+    prompt += f'\n\nIf the user asked "{question}". How relevant is the above context to the user\'s question?'
+    return prompt
+
+
+def filter_context_prompt(question: str, context_list: list[str]) -> str:
+    prompt = "Context:\n"
+    for idx, context in enumerate(context_list):
+        prompt += f"<Context {idx+1}>\n{context}\n</Context {idx+1}>\n"
+    # prompt += f"\nThe user asked: {question}\n\n"
+    # prompt += "\nHow relevant is the above context to the user's question?"
+    prompt += f'\n\nIf the user asked "{question}". What are the relevant context blocks, respond with the numbers of the context blocks separated by a space.'
     return prompt
 
 
@@ -128,7 +155,12 @@ def clean_question(question: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-q", "--question", help="The question to ask the codebase")
+    parser.add_argument(
+        "-q",
+        "--question",
+        help="The question to ask the codebase",
+        default="What is the overall purpose of this project?",
+    )
     parser.add_argument("-p", "--path", help="The path to the index file")
     args = parser.parse_args()
 
@@ -137,8 +169,8 @@ if __name__ == "__main__":
     folder_info = FolderInfo.load_from_msgpack(path)
 
     # answer = ask_question(question, folder_info)
-    most_rel = get_context_sentence_transformers(question, folder_info)
-    pprint(most_rel)
+    # most_rel = get_context_sentence_transformers(question, folder_info)
+    # pprint(most_rel)
 
-    answer = ask_question(question, folder_info)
-    pprint(answer)
+    answer, context_feedback, answer_feedback = ask_question(question, folder_info)
+    pprint([answer, context_feedback, answer_feedback])

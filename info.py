@@ -30,7 +30,12 @@ class FileInfo:
         return cls(data["path"], data["summary"], summary_embedding)
 
     def __repr__(self):
-        return self.to_dict().__repr__()
+        d = self.to_dict()
+        d["summary_embedding"] = None if d["summary_embedding"] is None else "Tensor"
+        return d.__repr__()
+
+    def __str__(self) -> str:
+        return self.__repr__()
 
 
 class FolderInfo:
@@ -75,7 +80,9 @@ class FolderInfo:
         return cls(data["path"], data["summary"], children_info, summary_embedding)
 
     def __repr__(self):
-        return self.to_dict().__repr__()
+        d = self.to_dict()
+        d["summary_embedding"] = None if d["summary_embedding"] is None else "Tensor"
+        return d.__repr__()
 
     def __str__(self) -> str:
         return self.__repr__()
@@ -84,6 +91,7 @@ class FolderInfo:
     def from_dict(cls, data: dict) -> "FolderInfo":
         path = data["path"]
         summary = data["summary"]
+        summary_embedding = data["summary_embedding"]
         children_info = {}
 
         for child_name, child_data in data["children_info"].items():
@@ -94,7 +102,7 @@ class FolderInfo:
             else:
                 children_info[child_name] = FileInfo(**child_data)
 
-        return cls(path, summary, children_info)
+        return cls(path, summary, children_info, summary_embedding)
 
     def save_to_json(self, file_path: os.PathLike) -> None:
         with open(file_path, "w", encoding="utf-8") as file:
