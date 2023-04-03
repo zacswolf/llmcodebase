@@ -161,7 +161,9 @@ if __name__ == "__main__":
         help="The question to ask the codebase",
         default="What is the overall purpose of this project?",
     )
-    parser.add_argument("-p", "--path", help="The path to the index file")
+    parser.add_argument(
+        "-p", "--path", help="The path to the index file"
+    )  # outputs/03_22_21_43_21.msgpack
     args = parser.parse_args()
 
     question = clean_question(args.question)

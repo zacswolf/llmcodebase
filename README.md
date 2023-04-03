@@ -109,3 +109,19 @@ The goal of this project is to interface LLM with any codebase so that developer
 - How does the codebase handle internationalization and localization?
 
 - Can you provide a high-level overview of the data flow in this codebase?
+
+## To run
+
+Note: you will have to change the timestamps on the json and msgpack files. Also python 3.11 or newer is required.
+
+```
+mkdir codebases
+mkdir outputs
+cd codebases
+git clone git@github.com:hwchase17/langchain.git
+cd ..
+python crawl.py --root_path codebases/langchain  -P "codebases/langchain" -P "codebases/langchain/langchain*"
+python embedding_generator.py --info_path outputs/03_22_21_30_12.json
+python question_intaker.py -p outputs/03_22_12_29_32.msgpack -q "What are the supported parsers?"
+python -m uvicorn app:app --reload
+```

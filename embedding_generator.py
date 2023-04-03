@@ -1,4 +1,6 @@
 import os
+import argparse
+from datetime import datetime
 from sentence_transformers import SentenceTransformer
 from info import FileInfo, FolderInfo
 
@@ -25,27 +27,14 @@ def generate_embedding(sentence: str, model: SentenceTransformer = MODEL):
 
 
 if __name__ == "__main__":
-    from datetime import datetime
-
-    # Replace this example with your actual FolderInfo instance
-    # example_folder_info = FolderInfo(
-    #     path="codebases/langchain",
-    #     summary=None,
-    #     children_info={
-    #         "langchain": FolderInfo(
-    #             path="codebases/langchain/langchain",
-    #             summary=None,
-    #             children_info={
-    #                 "serpapi.py": FileInfo(
-    #                     path="codebases/langchain/langchain/serpapi.py",
-    #                     summary="The 'serpapi.py' Python file is used to provide backwards compatibility...",
-    #                 )
-    #             },
-    #         )
-    #     },
-    # )
-
-    folder_info = FolderInfo.load_from_json("outputs/03_22_21_30_12.json")
+    parser = argparse.ArgumentParser(
+        description="Generate embedings for the folder info"
+    )
+    parser.add_argument(
+        "--info_path", help="Path to the folder info json folder"
+    )  # "outputs/03_22_21_30_12.json"
+    args = parser.parse_args()
+    folder_info = FolderInfo.load_from_json(args.info_path)
 
     generate_embeddings(folder_info)
     print(folder_info)
